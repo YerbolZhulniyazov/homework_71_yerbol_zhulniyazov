@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load django_bootstrap5 %}
+{% block content %}
+
+{% if user.is_authenticated %}
+<section class="main">
+    <div class="wrapper">
+        <div class="left-col">
+            {% for post in posts %}
+            <div class="post">
+                <div class="info">
+                    <div class="user">
+                        {% if post.author.avatar %}
+                        <div class="profile-pic"><a href="{% url 'profile' post.author.pk %}"><img
+                                src="{{ post.author.avatar.url }}" alt=""></a></div>
+                        <p class="username">{{ post.author.username }}</p>
+                        {% else %}
+                        <img class="border border-2 rounded-circle" src="{% static 'images/no.jpg' %}" alt="image"
+                             height="200" width="250">
+                        <p class="username">{{ post.author.username }}</p>
+                        {% endif %}
+                    </div>
+                    <img src="{% static 'images/option.PNG' %}" class="options" alt="">
+                </div>
+                <a href="{% url 'posts_detail' post.pk %}"><img class="post-image" alt=""
+                                                                src="{{ post.image.url }}"></a>
+                <div class="post-content">
+                    <div class="reaction-wrapper">
+                        <form action="{% url 'like_post' post.pk %}" method="post">
+                            {% csrf_token %}
+                            <button type="submit" name="post_id" value="{{ post.pk }}"><img
+                                    src="{% static 'images/like.PNG' %}" class="icon" alt=""></button>
+                        </form>
+                        <img src="{% static 'images/comment.PNG' %}" class="icon" alt="">
+                        <img src="{% static 'images/send.PNG' %}" class="icon" alt="">
+                        <img src="{% static 'images/save.PNG' %}" class="save icon" alt="">
+                    </div>
+                    <p class="likes">{{ post.count_likes }} отметок "Нравится"</p>
+                    <p class="description"><span>{{ post.author.username }}</span>{{ post.description }}</p>
+                    <p class="description">{{ post.comments.all.count }} Комментарий</p>
+                    {% for comment in post.comments.all %}
+                        <p class="description"><span>{{ comment.author }}</span>{{ comment }}</p>
+                    {% endfor %}
+                </div>
+                <form action="{% url 'to_comment' post.pk %}" method="post">
+                    {% csrf_token %}
+                    {% bootstrap_form favorite_form %}
+                    {% bootstrap_button button_type="submit" content='Опубликовать' %}
+                </form>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load django_bootstrap5 %}
+{% block title %}
+Post view
+{% endblock %}
+
+{% block content %}
+<section class="main">
+    <div class="wrapper">
+        <div class="left-col">
+            <div class="post">
+                <div class="info">
+                    <div class="user">
+                        <div class="profile-pic"><a href="{% url 'profile' post.author.pk %}"><img
+                                src="{{ post.author.avatar.url }}" alt=""></a></div>
+                        <p class="username">{{ post.author.username }}</p>
+                    </div>
+                    <img src="{% static 'images/option.png' %}" class="options" alt="">
+                </div>
+                {% if post.image %}
+                <a href="#"><img class="post-image" alt="" src="{{ post.image.url }}"></a>
+                {% endif %}
+                <div class="post-content">
+                    <div class="reaction-wrapper">
+                        <form action="{% url 'like_post' post.pk %}" method="post">
+                            {% csrf_token %}
+                            <button type="submit" name="post_id" value="{{ post.pk }}"><img
+                                    src="{% static 'images/like.PNG' %}" class="icon" alt=""></button>
+                        </form>
+                        <img src="{% static 'images/comment.PNG' %}" class="icon" alt="">
+                        <img src="{% static 'images/send.PNG' %}" class="icon" alt="">
+                        <img src="{% static 'images/save.PNG' %}" class="save icon" alt="">
+                    </div>
+                    <p class="likes">{{ count_likes }} отметок "Нравится"</p>
+                    <p class="description"><span>{{ post.author.username }}</span>{{ post.description }}</p>
+                    <p class="description">{{ post.comments.all.count }} Комментарий</p>
+                    {% for comment in comments %}
+                    <p class="description"><span>{{ comment.author }}</span>{{ comment }}</p>
+                    {% endfor %}
+                    <form action="{% url 'to_comment' post.pk %}" method="post">
+                    {% csrf_token %}
+                    {% bootstrap_form favorite_form %}
+                    {% bootstrap_button button_type="submit" content='Опубликовать' %}
+                    </form>
+                     {% if request.user == post.author %}
+                        <div class="row">
+                            <div class="col-2">
+                                <p><a class="btn btn-primary" href="{% url 'post_update' post.pk %}">Редактировать</a></p>
+                            </div>
+                            <div class="col-2">
+                                <p><a class="btn btn-danger" style="margin-left: 50px;" href="{% url 'post_delete' post.pk %}">Удалить</a></p>
+                            </div>
+                        </div>
+
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

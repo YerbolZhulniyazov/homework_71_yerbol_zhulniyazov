@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Post confirm delete{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="title col-6" style="margin-bottom:30px;">
+            <h1>Вы действительно хотите удалить данный пост?:</h1>
+        </div>
+        <div class="card" style="width: 50rem;">
+            <div class="card-body">
+                <img class="post-image" alt="" src="{{ post.image.url }}">
+                <p><b>Описание:</b> {{ post.description }}</p>
+            </div>
+        </div>
+        <form action=" " method="post">
+            {% csrf_token %}
+            <div class="buttons">
+                <p><input type="submit" button class="btn btn-danger" value="Удалить"></p>
+                <p><a href="{% url 'index' %}" button type="button" class="btn btn-primary" style="margin-left: 20px;">Отмена</a></p>
+            </div>
+        </form>
+    </div>
+{% endblock %}
