@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load django_bootstrap5 %}
+
+{% block title %}Редактировать профиль{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>Редактировать профиль</h1>
+    <form action="{% url 'change' user_obj.pk %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        {% bootstrap_button button_class="btn-secondary" button_type="submit" content='Edit' %}
+        <br>
+    </form>
+</div>
+
+{% endblock %}

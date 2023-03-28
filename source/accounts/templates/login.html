@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load django_bootstrap5 %}
+
+{% block content %}
+
+<div class="d-flex justify-content-center mt-4">
+    <div class="border border-4 p-5" style="width: 320px;">
+        <img src="{% static 'images/logo.PNG' %}" alt="instagram" height="55" width="144">
+        <div>
+            <form action="" method='POST'>
+                <div class='form'>
+                    {% csrf_token %}
+                    {{form.as_p}}
+                    <input class="btn btn-secondary" type="submit" value="Войти">
+                    <a class="btn btn-secondary" href="{% url 'register' %}">Регистрация</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

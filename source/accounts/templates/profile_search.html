@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Search result
+{% endblock %}
+
+{% block content %}
+{% for account in accounts %}
+<table class="mt-4">
+    <tr>
+        <td class="leftcol">
+            {% if account.avatar %}
+            <a href="{% url 'profile' account.pk %}"><img class="leftimg avatar border border-2 rounded-circle"
+                                                          src="{{ account.avatar.url }}" width="150" height="150"
+                                                          alt="user picture"></a>
+            {% endif %}
+        </td>
+        <td><a class="text-dark" href="{% url 'profile' account.pk %}">{{ account.username }}</a></td>
+    </tr>
+</table>
+{% endfor %}
+{% endblock %}
