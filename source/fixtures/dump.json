@@ -1,0 +1,285 @@
+[
+{
+  "model": "posts.post",
+  "pk": 2,
+  "fields": {
+    "description": "Сестренка",
+    "image": "posts/supergirl_tPm3OEb_CvDRGPU.webp",
+    "created_at": "2023-03-27T19:08:58.922Z",
+    "author": 5,
+    "likes": [
+      4
+    ]
+  }
+},
+{
+  "model": "posts.post",
+  "pk": 3,
+  "fields": {
+    "description": "Любимая кошка",
+    "image": "posts/cat_V4qX4mV.jpg",
+    "created_at": "2023-03-27T19:09:58.922Z",
+    "author": 5,
+    "likes": []
+  }
+},
+{
+  "model": "posts.post",
+  "pk": 4,
+  "fields": {
+    "description": "Моя валентинка",
+    "image": "posts/harley_oSQYnOF.webp",
+    "created_at": "2023-03-27T19:10:58.922Z",
+    "author": 4,
+    "likes": [
+      5
+    ]
+  }
+},
+{
+  "model": "posts.post",
+  "pk": 5,
+  "fields": {
+    "description": "Братишка)",
+    "image": "posts/joker_aYpNjOL.jpeg",
+    "created_at": "2023-03-27T19:07:58.922Z",
+    "author": 4,
+    "likes": [
+      5
+    ]
+  }
+},
+{
+  "model": "posts.post",
+  "pk": 6,
+  "fields": {
+    "description": "Моя прелесть",
+    "image": "posts/dog_UmVmHMb.jpg",
+    "created_at": "2023-03-27T19:09:58.922Z",
+    "author": 4,
+    "likes": [
+      5,
+      6
+    ]
+  }
+},
+{
+  "model": "posts.post",
+  "pk": 7,
+  "fields": {
+    "description": "Хочу такую тачку",
+    "image": "posts/batmobile_C7utP1m.webp",
+    "created_at": "2023-03-27T19:11:58.922Z",
+    "author": 5,
+    "likes": [
+      4
+    ]
+  }
+},
+{
+  "model": "posts.post",
+  "pk": 8,
+  "fields": {
+    "description": "Как я себя чувствую",
+    "image": "posts/5007_i3ZkbGx.webp",
+    "created_at": "2023-03-27T19:17:15.827Z",
+    "author": 6,
+    "likes": [
+      4,
+      5
+    ]
+  }
+},
+{
+  "model": "posts.post",
+  "pk": 9,
+  "fields": {
+    "description": "Моя женушка в реальной жизне",
+    "image": "posts/jennifer_BrPbZHe.jpg",
+    "created_at": "2023-03-28T01:21:24.199Z",
+    "author": 4,
+    "likes": [
+      5,
+      6
+    ]
+  }
+},
+{
+  "model": "posts.post",
+  "pk": 10,
+  "fields": {
+    "description": "Моя любимая команда",
+    "image": "posts/juventus_HoqXjcL.png",
+    "created_at": "2023-03-28T02:15:45.359Z",
+    "author": 6,
+    "likes": [
+      4
+    ]
+  }
+},
+{
+  "model": "posts.comment",
+  "pk": 2,
+  "fields": {
+    "author": 4,
+    "post": 2,
+    "text": "Красотка",
+    "created_at": "2023-03-27T17:35:44.925Z",
+    "changed_at": "2023-03-27T17:35:44.925Z"
+  }
+},
+{
+  "model": "posts.comment",
+  "pk": 3,
+  "fields": {
+    "author": 4,
+    "post": 3,
+    "text": "Не люблю кошек, больше по собакам",
+    "created_at": "2023-03-27T17:36:52.119Z",
+    "changed_at": "2023-03-27T17:36:52.119Z"
+  }
+},
+{
+  "model": "posts.comment",
+  "pk": 4,
+  "fields": {
+    "author": 5,
+    "post": 4,
+    "text": "Завидую)",
+    "created_at": "2023-03-27T17:43:12.183Z",
+    "changed_at": "2023-03-27T17:43:12.183Z"
+  }
+},
+{
+  "model": "posts.comment",
+  "pk": 5,
+  "fields": {
+    "author": 5,
+    "post": 5,
+    "text": "Черт он!",
+    "created_at": "2023-03-27T17:43:29.104Z",
+    "changed_at": "2023-03-27T17:43:29.104Z"
+  }
+},
+{
+  "model": "posts.comment",
+  "pk": 6,
+  "fields": {
+    "author": 5,
+    "post": 6,
+    "text": "я тоже собак люблю",
+    "created_at": "2023-03-27T17:43:51.005Z",
+    "changed_at": "2023-03-27T17:43:51.005Z"
+  }
+},
+{
+  "model": "posts.comment",
+  "pk": 7,
+  "fields": {
+    "author": 6,
+    "post": 4,
+    "text": "Мне ревновать?",
+    "created_at": "2023-03-27T17:44:59.634Z",
+    "changed_at": "2023-03-27T17:44:59.634Z"
+  }
+},
+{
+  "model": "posts.comment",
+  "pk": 8,
+  "fields": {
+    "author": 6,
+    "post": 5,
+    "text": "Встречу, сломаю",
+    "created_at": "2023-03-27T17:45:25.949Z",
+    "changed_at": "2023-03-27T17:45:25.949Z"
+  }
+},
+{
+  "model": "posts.comment",
+  "pk": 9,
+  "fields": {
+    "author": 6,
+    "post": 6,
+    "text": "Тоже хочу",
+    "created_at": "2023-03-27T17:45:40.210Z",
+    "changed_at": "2023-03-27T17:45:40.210Z"
+  }
+},
+{
+  "model": "posts.comment",
+  "pk": 10,
+  "fields": {
+    "author": 4,
+    "post": 7,
+    "text": "У меня таких валом",
+    "created_at": "2023-03-27T17:46:39.640Z",
+    "changed_at": "2023-03-27T17:46:39.640Z"
+  }
+},
+{
+  "model": "posts.comment",
+  "pk": 11,
+  "fields": {
+    "author": 4,
+    "post": 8,
+    "text": "Он больше похож на Супермена",
+    "created_at": "2023-03-27T19:18:26.516Z",
+    "changed_at": "2023-03-27T19:18:26.516Z"
+  }
+},
+{
+  "model": "posts.comment",
+  "pk": 12,
+  "fields": {
+    "author": 5,
+    "post": 8,
+    "text": "Вы очень жестокие ко мне((",
+    "created_at": "2023-03-27T22:06:02.230Z",
+    "changed_at": "2023-03-27T22:06:02.230Z"
+  }
+},
+{
+  "model": "posts.comment",
+  "pk": 13,
+  "fields": {
+    "author": 6,
+    "post": 9,
+    "text": "Шикарная женщина",
+    "created_at": "2023-03-28T01:33:19.650Z",
+    "changed_at": "2023-03-28T01:33:19.650Z"
+  }
+},
+{
+  "model": "posts.comment",
+  "pk": 14,
+  "fields": {
+    "author": 5,
+    "post": 9,
+    "text": "Ауф!",
+    "created_at": "2023-03-28T01:41:28.094Z",
+    "changed_at": "2023-03-28T01:41:28.094Z"
+  }
+},
+{
+  "model": "posts.comment",
+  "pk": 15,
+  "fields": {
+    "author": 4,
+    "post": 10,
+    "text": "Forza Juve!",
+    "created_at": "2023-03-28T02:16:24.235Z",
+    "changed_at": "2023-03-28T02:16:24.235Z"
+  }
+},
+{
+  "model": "posts.comment",
+  "pk": 16,
+  "fields": {
+    "author": 5,
+    "post": 10,
+    "text": "А я болею за Актобе!",
+    "created_at": "2023-03-28T02:33:56.904Z",
+    "changed_at": "2023-03-28T02:33:56.904Z"
+  }
+}
+]
