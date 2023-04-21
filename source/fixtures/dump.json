@@ -6,10 +6,7 @@
     "description": "Сестренка",
     "image": "posts/supergirl_tPm3OEb_CvDRGPU.webp",
     "created_at": "2023-03-27T19:08:58.922Z",
-    "author": 5,
-    "likes": [
-      4
-    ]
+    "author": 5
   }
 },
 {
@@ -19,8 +16,7 @@
     "description": "Любимая кошка",
     "image": "posts/cat_V4qX4mV.jpg",
     "created_at": "2023-03-27T19:09:58.922Z",
-    "author": 5,
-    "likes": []
+    "author": 5
   }
 },
 {
@@ -30,10 +26,7 @@
     "description": "Моя валентинка",
     "image": "posts/harley_oSQYnOF.webp",
     "created_at": "2023-03-27T19:10:58.922Z",
-    "author": 4,
-    "likes": [
-      5
-    ]
+    "author": 4
   }
 },
 {
@@ -43,10 +36,7 @@
     "description": "Братишка)",
     "image": "posts/joker_aYpNjOL.jpeg",
     "created_at": "2023-03-27T19:07:58.922Z",
-    "author": 4,
-    "likes": [
-      5
-    ]
+    "author": 4
   }
 },
 {
@@ -56,11 +46,7 @@
     "description": "Моя прелесть",
     "image": "posts/dog_UmVmHMb.jpg",
     "created_at": "2023-03-27T19:09:58.922Z",
-    "author": 4,
-    "likes": [
-      5,
-      6
-    ]
+    "author": 4
   }
 },
 {
@@ -70,10 +56,7 @@
     "description": "Хочу такую тачку",
     "image": "posts/batmobile_C7utP1m.webp",
     "created_at": "2023-03-27T19:11:58.922Z",
-    "author": 5,
-    "likes": [
-      4
-    ]
+    "author": 5
   }
 },
 {
@@ -83,11 +66,7 @@
     "description": "Как я себя чувствую",
     "image": "posts/5007_i3ZkbGx.webp",
     "created_at": "2023-03-27T19:17:15.827Z",
-    "author": 6,
-    "likes": [
-      4,
-      5
-    ]
+    "author": 6
   }
 },
 {
@@ -97,11 +76,7 @@
     "description": "Моя женушка в реальной жизне",
     "image": "posts/jennifer_BrPbZHe.jpg",
     "created_at": "2023-03-28T01:21:24.199Z",
-    "author": 4,
-    "likes": [
-      5,
-      6
-    ]
+    "author": 4
   }
 },
 {
@@ -111,10 +86,7 @@
     "description": "Моя любимая команда",
     "image": "posts/juventus_HoqXjcL.png",
     "created_at": "2023-03-28T02:15:45.359Z",
-    "author": 6,
-    "likes": [
-      4
-    ]
+    "author": 6
   }
 },
 {
@@ -207,17 +179,6 @@
 },
 {
   "model": "posts.comment",
-  "pk": 10,
-  "fields": {
-    "author": 4,
-    "post": 7,
-    "text": "У меня таких валом",
-    "created_at": "2023-03-27T17:46:39.640Z",
-    "changed_at": "2023-03-27T17:46:39.640Z"
-  }
-},
-{
-  "model": "posts.comment",
   "pk": 11,
   "fields": {
     "author": 4,
@@ -280,6 +241,97 @@
     "text": "А я болею за Актобе!",
     "created_at": "2023-03-28T02:33:56.904Z",
     "changed_at": "2023-03-28T02:33:56.904Z"
+  }
+},
+{
+  "model": "posts.like",
+  "pk": 1,
+  "fields": {
+    "author": 4,
+    "is_like": true,
+    "created_at": "2023-04-21T00:57:21.066Z",
+    "changed_at": "2023-04-21T00:57:21.066Z",
+    "post": [
+      6
+    ]
+  }
+},
+{
+  "model": "posts.like",
+  "pk": 2,
+  "fields": {
+    "author": 5,
+    "is_like": true,
+    "created_at": "2023-04-21T01:59:00.793Z",
+    "changed_at": "2023-04-21T01:59:00.793Z",
+    "post": [
+      10
+    ]
+  }
+},
+{
+  "model": "posts.like",
+  "pk": 3,
+  "fields": {
+    "author": 4,
+    "is_like": true,
+    "created_at": "2023-04-21T03:08:59.511Z",
+    "changed_at": "2023-04-21T03:08:59.517Z",
+    "post": [
+      2
+    ]
+  }
+},
+{
+  "model": "posts.like",
+  "pk": 4,
+  "fields": {
+    "author": 6,
+    "is_like": true,
+    "created_at": "2023-04-21T06:35:42.035Z",
+    "changed_at": "2023-04-21T06:35:42.035Z",
+    "post": [
+      4
+    ]
+  }
+},
+{
+  "model": "posts.like",
+  "pk": 5,
+  "fields": {
+    "author": 6,
+    "is_like": true,
+    "created_at": "2023-04-21T06:36:19.850Z",
+    "changed_at": "2023-04-21T06:36:19.850Z",
+    "post": [
+      6
+    ]
+  }
+},
+{
+  "model": "posts.like",
+  "pk": 6,
+  "fields": {
+    "author": 6,
+    "is_like": true,
+    "created_at": "2023-04-21T06:36:26.398Z",
+    "changed_at": "2023-04-21T06:36:26.398Z",
+    "post": [
+      5
+    ]
+  }
+},
+{
+  "model": "posts.like",
+  "pk": 7,
+  "fields": {
+    "author": 6,
+    "is_like": true,
+    "created_at": "2023-04-21T06:36:32.489Z",
+    "changed_at": "2023-04-21T06:36:32.489Z",
+    "post": [
+      3
+    ]
   }
 }
 ]
