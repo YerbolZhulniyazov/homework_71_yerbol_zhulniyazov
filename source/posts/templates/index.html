@@ -27,16 +27,27 @@
                                                                 src="{{ post.image.url }}"></a>
                 <div class="post-content">
                     <div class="reaction-wrapper">
-                        <form action="{% url 'like_post' post.pk %}" method="post">
-                            {% csrf_token %}
-                            <button type="submit" name="post_id" value="{{ post.pk }}"><img
-                                    src="{% static 'images/like.PNG' %}" class="icon" alt=""></button>
-                        </form>
+                         {% if request.user in post.likes.all %}
+                               <form id="form-dislike" action="{% url 'like' post.pk %}" method="post">
+                                {% csrf_token %}
+                                <button type="submit" name="post_id" value="{{ post.pk }}">
+                                    <img src="{% static 'images/liked.PNG' %}" class="icon" alt="Unlike">
+                                </button>
+                            </form>
+
+                        {% else %}
+                           <form id="form-like" action="{% url 'like' post.pk %}" method="post">
+                                {% csrf_token %}
+                                <button type="submit" name="post_id" value="{{ post.pk }}">
+                                    <img src="{% static 'images/like.PNG' %}" class="icon" alt="Like">
+                                </button>
+                            </form>
+                        {% endif %}
                         <img src="{% static 'images/comment.PNG' %}" class="icon" alt="">
                         <img src="{% static 'images/send.PNG' %}" class="icon" alt="">
                         <img src="{% static 'images/save.PNG' %}" class="save icon" alt="">
                     </div>
-                    <p class="likes">{{ post.count_likes }} отметок "Нравится"</p>
+                    <p class="likes">{{ post.likes.all.count }} отметок "Нравится"</p>
                     <p class="description"><span>{{ post.author.username }}</span>{{ post.description }}</p>
                     <p class="description">{{ post.comments.all.count }} Комментарий</p>
                     {% for comment in post.comments.all %}
@@ -52,6 +63,8 @@
             {% endfor %}
         </div>
     </div>
+
 </section>
+    <script src="{% static 'main.js' %}"></script>
 {% endif %}
 {% endblock %}

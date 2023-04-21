@@ -3,34 +3,45 @@
 {% block title %}Пользователь{% endblock %}
 
 {% block content %}
-<div class="profile">
-    <div class="profile-image">
-        {% if user_obj.avatar %}
-        <img class="border border-2 rounded-circle" src="{{ user_obj.avatar.url }}" alt="image" height="200"
-             width="250">
-        {% else %}
-        <img class="border border-2 rounded-circle" src="{% static 'images/no.jpg' %}" alt="image" height="200"
-             width="250">
-        {% endif %}
-    </div>
-    <div class="profile-user-settings">
-        <h1 class="profile-user-name">{{ user_obj.username }}</h1>
-        {% if user_obj != request.user and user_obj not in request.user.subscribers.all %}
-        <div class="btn profile-edit-btn">
-            <form action="{% url 'add_subscriptions' user_obj.pk %}" method="post">
-                {% csrf_token %}
-                <button name="user_id" value="{{ user_obj.pk }}">Подписаться</button>
-            </form>
+    <div class="profile">
+        <div class="profile-image">
+            {% if user_obj.avatar %}
+                <img class="border border-2 rounded-circle" src="{{ user_obj.avatar.url }}" alt="image" height="200"
+                     width="250">
+            {% else %}
+                <img class="border border-2 rounded-circle" src="{% static 'images/no.jpg' %}" alt="image" height="200"
+                     width="250">
+            {% endif %}
         </div>
-        {% endif %}
+        <div class="profile-user-settings">
+            <h1 class="profile-user-name">{{ user_obj.username }}</h1>
+            <div class="btn profile-edit-btn">
+                {% if user_obj != request.user %}
+                    {% if user_obj in request.user.subscribers.all %}
+                        <form action="{% url 'unsubscribe' user_obj.pk %}" method="post">
+                            {% csrf_token %}
+                            <button name="user_id" value="{{ user_obj.pk }}">Отписаться</button>
+                        </form>
+                    {% else %}
+                        <form action="{% url 'subscribe' user_obj.pk %}" method="post">
+                            {% csrf_token %}
+                            <button name="user_id" value="{{ user_obj.pk }}">Подписаться</button>
+                        </form>
+                    {% endif %}
+                    </div>
+                {% endif %}
+        </div>
+
     </div>
     <div class="profile-stats">
         <ul>
             <li><span class="profile-stat-count">{{ user_obj.posts.all.count }}</span> публикаций</li>
-            <li><a href="{% url 'subscribers' user_obj.pk%}"><span class="profile-stat-count">{{ user_obj.subscribers.count }}</span></a>
+            <li><a href="{% url 'subscribers' user_obj.pk %}"><span
+                    class="profile-stat-count">{{ user_obj.subscribers.count }}</span></a>
                 подписок
             </li>
-            <li><a href="{% url 'subscriptions' user_obj.pk%}"><span class="profile-stat-count">{{ user_obj.subscriptions.count }}</span></a>
+            <li><a href="{% url 'subscriptions' user_obj.pk %}"><span
+                    class="profile-stat-count">{{ user_obj.subscriptions.count }}</span></a>
                 подписчиков
             </li>
         </ul>
@@ -39,47 +50,59 @@
         <p><span class="profile-real-name">{{ user_obj.first_name }} {{ user_obj.last_name }} </span></p>
         <p>{{ user_obj.user_info }}</p>
     </div>
-</div>
+    </div>
 
-<div class="container">
-    <section class="main">
-        <div class="wrapper">
-            <div class="left-col">
-                {% for post in posts %}
-                <div class="post">
-                    <div class="info">
-                        <div class="user">
-                            <div class="profile-pic"><a href="{% url 'profile' post.author.pk %}"><img
-                                    src="{{ post.author.avatar.url }}" alt=""></a></div>
-                            <p class="username">{{ post.author.username }}</p>
-                        </div>
-                    </div>
-                    <a href="{% url 'posts_detail' post.pk %}"><img class="post-image" alt=""
-                                                                    src="{{ post.image.url }}"></a>
-                    <div class="post-content">
-                        <div class="reaction-wrapper">
-                            <form action="{% url 'like_post' post.pk %}" method="post">
+    <div class="container">
+        <section class="main">
+            <div class="wrapper">
+                <div class="left-col">
+                    {% for post in posts %}
+                        <div class="post">
+                            <div class="info">
+                                <div class="user">
+                                    <div class="profile-pic"><a href="{% url 'profile' post.author.pk %}"><img
+                                            src="{{ post.author.avatar.url }}" alt=""></a></div>
+                                    <p class="username">{{ post.author.username }}</p>
+                                </div>
+                            </div>
+                            <a href="{% url 'posts_detail' post.pk %}"><img class="post-image" alt=""
+                                                                            src="{{ post.image.url }}"></a>
+                            <div class="post-content">
+                                <div class="reaction-wrapper">
+                                   {% if request.user in post.likes.all %}
+                               <form id="form-dislike" action="{% url 'like' post.pk %}" method="post">
                                 {% csrf_token %}
-                                <button type="submit" name="post_id" value="{{ post.pk }}"><img
-                                        src="{% static 'images/like.PNG' %}" class="icon" alt=""></button>
+                                <button type="submit" name="post_id" value="{{ post.pk }}">
+                                    <img src="{% static 'images/liked.PNG' %}" class="icon" alt="Unlike">
+                                </button>
                             </form>
-                            <img src="{% static 'images/comment.PNG' %}" class="icon" alt="">
-                            <img src="{% static 'images/send.PNG' %}" class="icon" alt="">
-                            <img src="{% static 'images/save.PNG' %}" class="save icon" alt="">
-                        </div>
-                        <p class="likes">{{ post.count_likes }} отметок "Нравится"</p>
-                        <p class="description"><span>{{ post.author.username }}</span>{{ post.description }}</p>
-                        <p class="description">{{ post.comments.all.count }} Комментрий</p>
-                    </div>
-                </div>
-                {% endfor %}
-            </div>
 
-        </div>
-        {% if is_paginated %}
+                        {% else %}
+                           <form id="form-like" action="{% url 'like' post.pk %}" method="post">
+                                {% csrf_token %}
+                                <button type="submit" name="post_id" value="{{ post.pk }}">
+                                    <img src="{% static 'images/like.PNG' %}" class="icon" alt="Like">
+                                </button>
+                            </form>
+                        {% endif %}
+                                    <img src="{% static 'images/comment.PNG' %}" class="icon" alt="">
+                                    <img src="{% static 'images/send.PNG' %}" class="icon" alt="">
+                                    <img src="{% static 'images/save.PNG' %}" class="save icon" alt="">
+                                </div>
+                                <p class="likes">{{ post.likes.all.count }} отметок "Нравится"</p>
+                                <p class="description"><span>{{ post.author.username }}</span>{{ post.description }}</p>
+                                <p class="description">{{ post.comments.all.count }} Комментрий</p>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+
+            </div>
+            {% if is_paginated %}
                 {% include 'partial/pagination.html' %}
             {% endif %}
-    </section>
-</div>
+        </section>
+    <script src="{% static 'main.js' %}"></script>
+    </div>
 
 {% endblock %}
