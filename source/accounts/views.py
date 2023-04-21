@@ -4,10 +4,10 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import redirect, get_object_or_404
 from django.urls import reverse
 from django.views.generic import TemplateView, CreateView, DetailView, UpdateView, ListView
-from accounts.forms import LoginForm, CustomUserCreationForm, UserChangeForm
+from .forms import LoginForm, CustomUserCreationForm, UserChangeForm
 from django.db.models import Q
-from accounts.forms import SearchForm
-from accounts.models import Account
+from .forms import SearchForm
+from .models import Account
 from django.core.paginator import Paginator
 
 
@@ -68,7 +68,8 @@ class ProfileView(LoginRequiredMixin, DetailView):
 
     def get_context_data(self, **kwargs):
         posts = self.get_object().posts.all()
-        paginator = Paginator(posts.order_by('-created_at'), self.paginate_related_by, orphans=self.paginate_related_orphans)
+        paginator = Paginator(posts.order_by('-created_at'), self.paginate_related_by,
+                              orphans=self.paginate_related_orphans)
         page_number = self.request.GET.get('page', 1)
         page = paginator.get_page(page_number)
         kwargs['page_obj'] = page
@@ -115,10 +116,17 @@ class SearchProfileView(ListView):
         return queryset
 
 
-def add_subscriptions(request, pk):
+def subscribe(request, pk):
     user = get_object_or_404(Account, pk=request.POST.get('user_id'))
     if user != request.user:
         user.subscriptions.add(request.user)
+    return HttpResponseRedirect(reverse('profile', args=[str(pk)]))
+
+
+def unsubscribe(request, pk):
+    user = get_object_or_404(Account, pk=request.POST.get('user_id'))
+    if user.subscriptions.filter(pk=request.user.pk).exists():
+        user.subscriptions.remove(request.user)
     return HttpResponseRedirect(reverse('profile', args=[str(pk)]))
 
 
