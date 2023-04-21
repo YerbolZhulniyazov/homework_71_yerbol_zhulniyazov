@@ -3,8 +3,9 @@ from django.db.models import Q
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse
+from django.views import View
 from django.views.generic import ListView, DetailView, CreateView, FormView, DeleteView, UpdateView
-from posts.models import Post
+from posts.models import Post, Like
 from posts.forms import PostForm
 from posts.forms import CommentForm
 from posts.models import Comment
@@ -50,9 +51,6 @@ class PostsDetailView(LoginRequiredMixin, DetailView):
 
     def get_context_data(self, *args, **kwargs):
         context = super(PostsDetailView, self).get_context_data(*args, **kwargs)
-        likes_count = get_object_or_404(Post, id=self.kwargs['pk'])
-        count_likes = likes_count.count_likes()
-        context['count_likes'] = count_likes
         context['favorite_form'] = CommentForm()
         context['comments'] = self.object.comments.order_by('created_at')
         return context
@@ -68,14 +66,20 @@ class CommentAddView(LoginRequiredMixin, FormView):
             text = form.cleaned_data.get('text')
             author = request.user
             Comment.objects.create(author=author, post=post, text=text)
+        return HttpResponseRedirect(reverse('index'))
+
+
+class PostLikeView(LoginRequiredMixin, View):
+    model = Like
+
+    def post(self, request, *args, **kwargs):
+        post = get_object_or_404(Post, pk=kwargs.get('pk'))
+        if post.likes.filter(author_id=request.user).filter(is_like=True):
+            post.likes.filter(author_id=request.user).delete()
+        else:
+            like = Like.objects.create(author=request.user, is_like=True)
+            like.post.add(post)
         return redirect('index')
-
-
-def add_like(request, pk):
-    post = get_object_or_404(Post, pk=request.POST.get('post_id'))
-    if post.author != request.user:
-        post.likes.add(request.user)
-    return HttpResponseRedirect(reverse('index'))
 
 
 class PostUpdateView(PermissionRequiredMixin, UpdateView):
