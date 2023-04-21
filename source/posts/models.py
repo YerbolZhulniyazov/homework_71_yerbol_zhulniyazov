@@ -27,16 +27,6 @@ class Post(models.Model):
         blank=False,
         on_delete=models.CASCADE)
 
-    likes = models.ManyToManyField(
-        verbose_name='Лайк',
-        to=get_user_model(),
-        related_name='like_post',
-        default=None
-    )
-
-    def count_likes(self):
-        return self.likes.count()
-
 
 class Comment(models.Model):
     author = models.ForeignKey(
@@ -72,3 +62,31 @@ class Comment(models.Model):
 
     def __str__(self):
         return f'{self.text}'
+
+
+class Like(models.Model):
+    author = models.ForeignKey(
+        verbose_name='Автор',
+        to=get_user_model(),
+        related_name='likes',
+        null=False,
+        blank=False,
+        on_delete=models.CASCADE)
+    post = models.ManyToManyField(
+        verbose_name='Публикации с лайком',
+        to='posts.Post',
+        related_name='likes'
+    )
+    is_like = models.BooleanField(
+        verbose_name='Лайк',
+        default=False, null=False
+    )
+    created_at = models.DateTimeField(
+        verbose_name='Дата создания',
+        auto_now_add=True
+    )
+    changed_at = models.DateTimeField(
+        verbose_name='Дата изменения',
+        auto_now=True
+    )
+
